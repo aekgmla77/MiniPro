@@ -14,6 +14,7 @@ public class MemberDao extends DAO implements DbInterface<MemberVo> {
 	private ResultSet rs;
 	
 	private String MEMBERSELECT = "SELECT * FROM MEMBER WHERE MID=? AND MPASSWORD=?";
+	private String MEMBERINSERT = "INSERT INTO MEMBER(MID,MNAME,MPASSWORD) VALUES(?,?,?)";
 	
 	@Override
 	public ArrayList<MemberVo> selectList() {
@@ -45,8 +46,20 @@ public class MemberDao extends DAO implements DbInterface<MemberVo> {
 
 	@Override
 	public int insert(MemberVo vo) {
+		int n = 0;
 		// TODO Auto-generated method stub
-		return 0;
+		try {
+			psmt = conn.prepareStatement(MEMBERINSERT);
+			psmt.setString(1, vo.getmId());
+			psmt.setString(2, vo.getmName());
+			psmt.setString(3, vo.getmPassword());
+			n = psmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return n;
 	}
 
 	@Override
@@ -61,6 +74,24 @@ public class MemberDao extends DAO implements DbInterface<MemberVo> {
 		return 0;
 	}
 
+	public boolean isIdCheck(String id) {  //id 중복확인을 위한 method
+		boolean bool = true;
+		String sql = "select mid from member where mid = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				bool = false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return bool;
+	}
+	
 	private void close() {
 		try {
 			if(rs != null) rs.close();

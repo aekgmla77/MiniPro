@@ -26,7 +26,6 @@ public class MemberJoin implements Service {
 		}else {
 			viewPage = "views/member/memberJoinFail.jsp";
 		}
-		
 		return viewPage;
 	}
 

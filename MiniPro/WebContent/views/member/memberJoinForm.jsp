@@ -8,13 +8,13 @@
 <script type="text/javascript">
 	function formCheck() {
 		
-		if(frm.mPassword.value != frm.mPassword1.value){
-			alert("패스워드가 일치하지 않습니다.")
+		if(frm.mPassword.value != frm.mPassword1.value) {
+			alert("패스워드가 일치하지 않습니다.");
 			frm.mPassword1.value = null;
 			frm.mPassword1.focus();
-			return ture;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	function idCheck(str) {
@@ -32,7 +32,7 @@
 <body>
 <div align="center"><h1>회 원 가 입</h1></div><br/>
 	<div align="center">
-		<form id = "frm" name="frm" onsubmit="formCheck()" action="memberJoin.do" method="post">
+		<form id = "frm" name="frm" onsubmit="return formCheck()" action="memberJoin.do" method="post">
 			<div>
 				<table border="1">
 					<tr>

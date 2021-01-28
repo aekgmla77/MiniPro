@@ -17,7 +17,7 @@ public class Login implements Service {
 		vo.setmId(request.getParameter("mId"));
 		vo.setmPassword(request.getParameter("mPassword"));
 		
-		vo = dao.select(vo);  //로그인 체크하기 dao 호출
+		vo = dao.login(vo);  //로그인 체크하기 dao 호출
 		
 		String viewPage = null;
 		
